@@ -14,7 +14,7 @@ const navLinks = [
 
 export const Navbar = () => {
   return (
-    <header className="fixed top-0 left-0 w-full z-30 py-7 bg-gradient-to-b from-black/10">
+    <header className="fixed top-0 left-0 w-full z-30 py-7 bg-gradient-to-b from-black/10 backdrop-blur-md">
       <nav className="container mx-auto px-4" aria-label="Main navigation">
         <div className="flex items-center justify-between">
           <div className="flex items-center sm:gap-20">
@@ -50,7 +50,7 @@ export const Navbar = () => {
             <button
               type="button"
               aria-label="Toggle menu"
-              className="md:hidden p-3 rounded-md hover:bg-white/20 transition-colors"
+              className="md:hidden p-3 rounded-md hover:bg-white/20 transition-colors menuBtn bg-white bg-opacity-10 cursor-pointer"
             >
               <Image
                 src={Menu}

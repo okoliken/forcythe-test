@@ -1,14 +1,17 @@
-export interface TypewriterProps {
-    text: string | string[];
+import { JSX } from "react";
+
+export interface TypewriterSegment {
+    text: string;
     className?: string;
+  }
+  
+  export interface TypewriterProps {
+    segments: TypewriterSegment[];
+    wrapperClassName?: string;
     speed?: number;
     delay?: number;
     cursorColor?: string;
-    textColor?: string;
-    fontSize?: 'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
-    fontWeight?: 'normal' | 'medium' | 'semibold' | 'bold';
-    variant?: 'block' | 'character';
     cursor?: boolean;
     onComplete?: () => void;
+    as?: keyof JSX.IntrinsicElements;
   }
-  
