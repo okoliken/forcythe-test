@@ -3,7 +3,7 @@ import Instagram from "../public/assets/footer/instagram.svg";
 import Twitter from "../public/assets/footer/x.svg";
 import Linkedin from "../public/assets/footer/linkedin.svg";
 import Youtube from "../public/assets/footer/youtube.svg";
-import Spotify from "../public/assets/footer/icon.svg";
+import Spotify from "../public/assets/footer/Icon.svg";
 
 export const socialIons = {
     Facebook,
