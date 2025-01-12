@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Forcythelogo from "@/public/assets/hero/forcythelogo.svg";
 import { socialIons } from "@/lib/footer";
-import { div } from "motion/react-client";
+
 
 const socialLinks = [
   {
