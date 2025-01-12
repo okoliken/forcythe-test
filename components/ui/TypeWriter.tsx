@@ -11,18 +11,15 @@ const Typewriter = (props: TypewriterProps) => {
     delay = 100, 
     onComplete, 
     as: Component = 'div', 
-    cursor,
     cursorColor,
     ...restProps 
   } = props;
 
   const [displayedText, setDisplayedText] = useState('');
   const [currentSegmentIndex, setCurrentSegmentIndex] = useState(0);
-  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     if (currentSegmentIndex >= segments.length) {
-      setIsComplete(true);
       onComplete?.();
       return;
     }

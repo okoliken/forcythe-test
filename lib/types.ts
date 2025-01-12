@@ -11,7 +11,6 @@ export interface TypewriterSegment {
     speed?: number;
     delay?: number;
     cursorColor?: string;
-    cursor?: boolean;
     onComplete?: () => void;
     as?: keyof JSX.IntrinsicElements;
   }

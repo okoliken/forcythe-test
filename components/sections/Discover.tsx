@@ -1,12 +1,12 @@
 "use client";
 import useTypewriterEffect from "@/hooks/useTypeWriterEffect";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tabs as TabImages, team } from "@/lib/testimonials";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const Discover = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const paragraphText = [
     "Discover",
     "the",
@@ -62,6 +62,56 @@ export const Discover = () => {
     },
   ];
 
+  const LEFT_POSITIONS = [
+    "0px", // First index
+    "20%", // Second index
+    "40%", // Third index
+    "30%", // Fourth index
+    "50%", // Fifth index
+  ];
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+
+    if (isAutoPlaying) {
+      intervalId = setInterval(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+      }, 5000); // Change slide every 5 seconds
+    }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [isAutoPlaying, testimonials.length]);
+
+  const handleTabClick = (index: number) => {
+    setCurrentIndex(index);
+    setIsAutoPlaying(false); // Stop auto-playing when manually clicked
+  };
+
+  const containerVariants = {
+    initial: {
+      opacity: 0,
+      x: LEFT_POSITIONS[currentIndex],
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeInOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: LEFT_POSITIONS[currentIndex],
+      transition: {
+        duration: 0.5,
+        ease: "easeInOut",
+      },
+    },
+  };
+
   return (
     <div className="py-10 container mx-auto px-4 md:px-5">
       <p className="text-[2rem] leading-[2.5rem] sm:text-[2.2rem] sm:leading-[2.5rem] lg:text-[2.6rem] lg:leading-[3.5rem] mb-12 max-w-4xl mx-auto text-center">
@@ -81,49 +131,76 @@ export const Discover = () => {
         ))}
       </p>
 
-      <Tabs currentIndex={currentIndex} setCurrentIndex={setCurrentIndex} />
+      <Tabs
+        currentIndex={currentIndex}
+        setCurrentIndex={handleTabClick}
+        isAutoPlaying={isAutoPlaying}
+        onResumeAutoPlay={() => setIsAutoPlaying(true)}
+      />
 
-      <div className="mt-5 w-full md:w-[70%] lg:w-[50%] mx-auto">
-        <div className="rounded-[1.8rem] flex flex-col sm:flex-row p-5 sm:p-7 bg-[#062645]">
-          <div className="flex items-start justify-between flex-col sm:basis-[58%] pr-3" style={{left:'-5px'}}>
-            <p className="text-base leading-7 mb-3">
-              {[testimonials[currentIndex].company].map((text, index) => (
-                <motion.span key={index} ref={ref} {...animationProps(index)}>
-                  {text}
-                </motion.span>
-              ))}
-            </p>
-            <p className="text-base leading-7 mb-3">
-              {[testimonials[currentIndex].text].map((text, index) => (
-                <motion.span key={index} ref={ref} {...animationProps(index)}>
-                  {text}
-                </motion.span>
-              ))}
-            </p>
-            <p className="text-base leading-7 mb-3">
-              {[testimonials[currentIndex].author].map((text, index) => (
-                <motion.span key={index} ref={ref} {...animationProps(index)}>
-                  {text}
-                </motion.span>
-              ))}
-              {[testimonials[currentIndex].role].map((text, index) => (
-                <motion.span key={index} ref={ref} {...animationProps(index)}>
-                  {text}
-                </motion.span>
-              ))}
-            </p>
-          </div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentIndex}
+          variants={containerVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          className={`mt-5 w-full md:w-[70%] lg:w-[50%] rounded-[1.8rem] flex flex-col sm:flex-row p-5 sm:p-7 ${
+            currentIndex > 0 ? "lg:relative" : ""
+          }`}
+          style={{ left: LEFT_POSITIONS[currentIndex] || "0px" }}
+        >
+          <div className="rounded-[1.8rem] flex flex-col sm:flex-row p-5 sm:p-7 bg-[#062645]">
+            <motion.div className="flex items-start justify-between flex-col sm:basis-[58%] pr-3">
+              <p className="text-base leading-7 mb-3">
+                {[testimonials[currentIndex].company].map((text, index) => (
+                  <motion.span key={index} ref={ref} {...animationProps(index)}>
+                    {text}
+                  </motion.span>
+                ))}
+              </p>
+              <p className="text-base leading-7 mb-3">
+                {[testimonials[currentIndex].text].map((text, index) => (
+                  <motion.span key={index} ref={ref} {...animationProps(index)}>
+                    {text}
+                  </motion.span>
+                ))}
+              </p>
+              <p className="text-base leading-7 mb-3">
+                {[testimonials[currentIndex].author].map((text, index) => (
+                  <motion.span key={index} ref={ref} {...animationProps(index)}>
+                    {text}
+                  </motion.span>
+                ))}
+                {[testimonials[currentIndex].role].map((text, index) => (
+                  <motion.span key={index} ref={ref} {...animationProps(index)}>
+                    {text}
+                  </motion.span>
+                ))}
+              </p>
+            </motion.div>
 
-          <div className="w-full h-[24rem] sm:w-auto sm:h-auto sm:basis-[42%] relative object-top mt-3 sm:mt-0">
-            <div className="bg-accent z-0 w-full h-full absolute top-0 left-0 bg-opacity-10 rounded-xl"></div>
-            <img
-              src={testimonials[currentIndex].avatar.src}
-              alt={testimonials[currentIndex].author}
-              className="relative z-10 w-full h-full object-cover rounded-xl"
-            />
+            <div className="w-full h-[24rem] sm:w-auto sm:h-auto sm:basis-[42%] relative object-top mt-3 sm:mt-0">
+              <div className="bg-accent z-0 w-full h-full absolute top-0 left-0 bg-opacity-10 rounded-xl"></div>
+              <img
+                src={testimonials[currentIndex].avatar.src}
+                alt={testimonials[currentIndex].author}
+                loading="lazy"
+                decoding="async"
+                className="relative z-10 w-full h-full object-cover rounded-xl"
+                style={{
+                  position: "absolute",
+                  height: "100%",
+                  width: "100%",
+                  inset: 0,
+                  objectFit: "cover",
+                  color: "transparent",
+                }}
+              />
+            </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };
@@ -131,9 +208,13 @@ export const Discover = () => {
 const Tabs = ({
   currentIndex,
   setCurrentIndex,
+  isAutoPlaying,
+  onResumeAutoPlay,
 }: {
   currentIndex: number;
   setCurrentIndex: (index: number) => void;
+  isAutoPlaying: boolean;
+  onResumeAutoPlay: () => void;
 }) => {
   return (
     <div className="w-full overflow-x-scroll hide-scrollbar">
@@ -145,9 +226,9 @@ const Tabs = ({
             className={`w-full p-[1.1rem] cursor-pointer ${
               currentIndex === index ? "bg-[#062645]" : ""
             }
-            ${index === 0 ? "rounded-s-full" : ""}
-            ${index === TabImages.length - 1 ? "rounded-e-full" : ""}
-            `}
+              ${index === 0 ? "rounded-s-full" : ""}
+              ${index === TabImages.length - 1 ? "rounded-e-full" : ""}
+              `}
           >
             <div className="w-fit h-full col mx-auto gap-1.5 text-white text-[17px] font-medium min-w-fit flex items-center justify-center">
               <img
