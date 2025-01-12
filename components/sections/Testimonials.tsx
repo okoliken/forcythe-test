@@ -19,6 +19,7 @@ const TestimonialsMarquee = ({ direction = "left" }: { direction?: "left" | "rig
               width={image.width}
               height={image.height}
               priority
+              draggable={false}
               className="overflow-hidden w-full h-full"
               decoding="async"
               style={{ color: "transparent" }}
