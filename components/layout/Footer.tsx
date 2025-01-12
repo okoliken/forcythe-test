@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Forcythelogo from "@/public/assets/hero/forcythelogo.svg";
 import { socialIons } from "@/lib/footer";
+import { div } from "motion/react-client";
 
 const socialLinks = [
   {
@@ -50,10 +51,11 @@ const companyLinks = [
 
 const Footer = () => {
   return (
-    <div
-    className="bg-[#071626] py-10"
+   <div  className="bg-[#071626] py-10">
+     <div
+    className="container mx-auto px-4 md:px-5"
     >
-      <div className="lg:grid lg:grid-cols-3 my-10 py-10 place-content-center container mx-auto px-4 md:px-5">
+      <div className="lg:grid lg:grid-cols-3 my-10 py-10 place-content-center">
         <div className="max-w-lg mb-10 lg:mb-0">
           <div className="w-full grid grid-cols-4">
             <input
@@ -61,7 +63,7 @@ const Footer = () => {
               placeholder="Your Email Address"
               type="text"
             />
-            <button className="py-3 h-full bg-white text-black hover:bg-[#064386] hover:text-white custom-animate rounded-e-full text-sm font-medium border border-l-0 border-white">
+            <button className="py-3 h-full bg-white text-black hover:bg-[#064386] hover:text-white custom-animate rounded-e-full text-sm font-medium border border-l-0 border-white transition-all duration-300">
               Subscribe
             </button>
           </div>
@@ -147,6 +149,7 @@ const Footer = () => {
         </p>
       </div>
     </div>
+   </div>
   );
 };
 

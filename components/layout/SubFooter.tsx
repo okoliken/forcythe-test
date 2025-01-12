@@ -18,7 +18,7 @@ const SubFooter = () => {
           <span className="text-accent"> growth accelerator</span>
         </h2>
 
-        <div className="w-fit mx-auto mb-5">
+        <div className="w-fit mx-auto mb-5 relative z-10">
           <Button>
             Book a Call
           </Button>

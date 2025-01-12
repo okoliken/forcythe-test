@@ -31,9 +31,7 @@ export default function Home() {
               <div>
                 <NewsAndArticles />
               </div>
-              <div>
                 <SubFooter />
-              </div>
             </div>
           </div>
         </div>

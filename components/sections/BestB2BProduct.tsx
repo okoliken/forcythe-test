@@ -1,6 +1,13 @@
 "use client";
 import useTypewriterEffect from "@/hooks/useTypeWriterEffect";
 import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+
+interface Props {
+  icon: () => React.JSX.Element;
+  title: string;
+  description: string;
+}
 
 const LayersThree = () => {
   return (
@@ -35,7 +42,7 @@ export const BestB2BProduct = () => {
 
   const { ref, animationProps } = useTypewriterEffect(paragraphText);
 
-  const cardData = [
+  const cardData: Props[] = [
     {
       icon: LayersThree,
       title: "Experience",
@@ -82,42 +89,99 @@ export const BestB2BProduct = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-7 md:gap-8">
-            {cardData.map((card, index) => (
-              <div
-                key={index}
-                className="relative flex border-0 transition duration-500 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit rounded-2xl text-left"
-              >
-                <div className="w-auto text-white z-10 bg-transparent rounded-[inherit]">
-                  <div className="w-full bg-[#030516] rounded-2xl p-8 sm:p-10 hover:shadow-darkGrey custom-animate">
-                    <div className="w-fit p-2 bg-[#60A6E7] bg-opacity-60 rounded-md mb-5">
-                      <card.icon />
-                    </div>
-                    <h4 className="text-2xl font-medium mb-5">{card.title}</h4>
-                    <p className="mb-0 text-white/60 text-[17.5px]">
-                      {card.description}
-                    </p>
-                  </div>
-                </div>
-                <div
-                  className="flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit]"
-                  style={{
-                    filter: "blur(2px)",
-                    position: "absolute",
-                    width: "100%",
-                    height: "100%",
-                    background:
-                      "radial-gradient(17.0527% 42.8675% at 90.5203% 58.8262%, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%)",
-                  }}
-                />
-                <div className="bg-black absolute z-1 flex-none inset-[2px] rounded-[inherit]" />
-              </div>
-            ))}
-          </div>
+          <CardGrid cardData={cardData} />
         </div>
       </div>
       <CompanyStats />
     </>
+  );
+};
+
+const AnimatedCard = ({ card, index }: { card: Props; index: number }) => {
+    const cardRef = useRef<HTMLDivElement | null>(null);
+    const [isHovered, setIsHovered] = useState(false);
+    
+    useEffect(() => {
+      if (isHovered) return;
+      
+      const animate = () => {
+        // Add phase offset based on index
+        const phaseOffset = (index * Math.PI * 2) / 3; // Dividing by 3 for three columns
+        const time = Date.now() / 2000;
+        
+        // Add offset to create alternating pattern
+        const x = 50 + Math.cos(time + phaseOffset) * 40;
+        const y = 50 + Math.sin(time + phaseOffset) * 40;
+        
+        if (cardRef.current) {
+          cardRef.current.style.background = 
+            `radial-gradient(17.0527% 42.8675% at ${x}% ${y}%, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%)`;
+        }
+      };
+  
+      const animationFrame = () => {
+        animate();
+        requestRef.current = requestAnimationFrame(animationFrame);
+      };
+  
+      const requestRef = { current: requestAnimationFrame(animationFrame) };
+  
+      return () => {
+        cancelAnimationFrame(requestRef.current);
+      };
+    }, [isHovered, index]);
+  
+    const handleMouseMove = (e: React.MouseEvent) => {
+      if (!cardRef.current) return;
+      
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      
+      cardRef.current.style.background = 
+        `radial-gradient(17.0527% 42.8675% at ${x}% ${y}%, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%)`;
+    };
+  
+    return (
+      <div
+        className="relative flex border-0 transition duration-500 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit rounded-2xl text-left"
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div className="w-auto text-white z-10 bg-transparent rounded-[inherit]">
+          <div className="w-full bg-[#030516] rounded-2xl p-8 sm:p-10 hover:shadow-darkGrey transition-all duration-300">
+            <div className="w-fit p-2 bg-[#60A6E7] bg-opacity-60 rounded-md mb-5">
+              <card.icon />
+            </div>
+            <h4 className="text-2xl font-medium mb-5">{card.title}</h4>
+            <p className="mb-0 text-white/60 text-[17.5px]">
+              {card.description}
+            </p>
+          </div>
+        </div>
+        <div
+          ref={cardRef}
+          className="flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit] transition-all duration-200"
+          style={{
+            filter: "blur(2px)",
+            position: "absolute",
+            width: "100%",
+            height: "100%"
+          }}
+        />
+        <div className="bg-black absolute z-1 flex-none inset-[2px] rounded-[inherit]" />
+      </div>
+    );
+  };
+
+const CardGrid = ({ cardData }: { cardData: Props[] }) => {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-7 md:gap-8">
+      {cardData.map((card, index) => (
+        <AnimatedCard key={index} index={index} card={card} />
+      ))}
+    </div>
   );
 };
 
