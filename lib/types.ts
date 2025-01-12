@@ -10,7 +10,6 @@ export interface TypewriterSegment {
     wrapperClassName?: string;
     speed?: number;
     delay?: number;
-    cursorColor?: string;
     onComplete?: () => void;
     as?: keyof JSX.IntrinsicElements;
   }

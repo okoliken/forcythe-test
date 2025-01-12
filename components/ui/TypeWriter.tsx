@@ -11,7 +11,6 @@ const Typewriter = (props: TypewriterProps) => {
     delay = 100, 
     onComplete, 
     as: Component = 'div', 
-    cursorColor,
     ...restProps 
   } = props;
 

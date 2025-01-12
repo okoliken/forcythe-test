@@ -3,16 +3,17 @@ import useTypewriterEffect from "@/hooks/useTypeWriterEffect";
 import { motion } from "motion/react";
 import { useToggle } from "@/stores/useToggle";
 import Marquee from "react-fast-marquee";
+import Image from "next/image";
 import { testimonials } from "@/lib/testimonials";
 
-const TestimonialsMarquee = ({ direction = 'left' }: { direction?: "left" | "right" | "up" | "down" }) => {
+const TestimonialsMarquee = ({ direction = "left" }: { direction?: "left" | "right" | "up" | "down" }) => {
   return (
     <Marquee direction={direction}>
       <div className="skills overflow-hidden flex items-stretch gap-5 w-full ml-5">
         {testimonials.map((image, index) => (
           <div key={index} className="relative w-auto h-[340px]">
             <div className="bg-accent -z-10 w-full h-full absolute top-0 left-0 bg-opacity-10 animate-pulse" />
-            <img
+            <Image
               src={image.src}
               alt={image.alt}
               loading="lazy"
