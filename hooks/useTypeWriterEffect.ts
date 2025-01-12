@@ -13,7 +13,10 @@ interface TypewriterEffectResult {
   };
 }
 
-const useTypewriterEffect = (textArray: string[], shouldWait?: boolean | null): TypewriterEffectResult => {
+const useTypewriterEffect = (
+  textArray: string[],
+  shouldWait?: boolean | null
+): TypewriterEffectResult => {
   const [isVisible, setIsVisible] = useState(false);
   const [revealedIndices, setRevealedIndices] = useState<number[]>([]);
   const ref = useRef<HTMLElement>(null);
@@ -21,33 +24,32 @@ const useTypewriterEffect = (textArray: string[], shouldWait?: boolean | null): 
     amount: "some",
     once: true,
   });
- 
+
   const startTyping = () => {
     const interval = setInterval(() => {
-        
-        setRevealedIndices((prev) => {
-          if (prev.length < textArray.length) {
-            return [...prev, prev.length];
-          }
-          clearInterval(interval);
-          return prev;
-        });
-      }, 100);
+      setRevealedIndices((prev) => {
+        if (prev.length < textArray.length) {
+          return [...prev, prev.length];
+        }
+        clearInterval(interval);
+        return prev;
+      });
+    }, 100);
 
-      return interval
-  }
+    return interval;
+  };
 
   useEffect(() => {
     if (isInView && shouldWait) {
-        const interval = startTyping()
+      const interval = startTyping();
 
-        return () => clearInterval(interval);
+      return () => clearInterval(interval);
     }
 
     if (isInView && shouldWait === undefined) {
-        const interval = startTyping()
+      const interval = startTyping();
 
-        return () => clearInterval(interval);
+      return () => clearInterval(interval);
     }
   }, [isInView, shouldWait, textArray, isVisible]);
 

@@ -15,8 +15,11 @@ const TestimonialsMarquee = ({ direction = "left" }: { direction?: "left" | "rig
             <div className="bg-accent -z-10 w-full h-full absolute top-0 left-0 bg-opacity-10 animate-pulse" />
             <Image
               src={image.src}
-              alt={image.alt}
+              alt={`image-${index}`}
+              width={image.width}
+              height={image.height}
               loading="lazy"
+              priority
               className="overflow-hidden w-full h-full"
               decoding="async"
               style={{ color: "transparent" }}

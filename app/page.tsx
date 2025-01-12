@@ -1,7 +1,9 @@
 import { Hero } from "@/components/sections/Hero";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { Discover } from "@/components/sections/Discover";
-
+import Services from "@/components/sections/Services";
+import { BestB2BProduct } from "@/components/sections/BestB2BProduct";
+import NewsAndArticles from "@/components/sections/NewsAndArticles";
 
 export default function Home() {
   return (
@@ -14,10 +16,19 @@ export default function Home() {
           <div className="min-h-[60px]">
             <div>
               <div>
-               <Testimonials />
+                <Testimonials />
               </div>
               <div>
                 <Discover />
+              </div>
+              <div>
+                <Services />
+              </div>
+              <div>
+                <BestB2BProduct />
+              </div>
+              <div>
+                <NewsAndArticles />
               </div>
             </div>
           </div>

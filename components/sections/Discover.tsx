@@ -211,7 +211,7 @@ const Tabs = ({
             <div className="w-fit h-full col mx-auto gap-1.5 text-white text-[17px] font-medium min-w-fit flex items-center justify-center">
               <Image
                 src={image.src}
-                alt={image.alt}
+                alt="image"
                 loading="lazy"
                 className="overflow-hidden w-full h-7 flex-1"
                 decoding="async"

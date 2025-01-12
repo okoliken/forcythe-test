@@ -54,7 +54,7 @@ export const Navbar = () => {
             >
               <Image
                 src={Menu}
-                alt=""
+                alt="mobile menu"
                 width={18}
                 height={18}
                 className="w-[18px] h-[18px]"
