@@ -141,9 +141,6 @@ const AnimatedCard = ({ card, index }: { card: Props; index: number }) => {
     cardRef.current.style.background = `radial-gradient(17.0527% 42.8675% at ${x}% ${y}%, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%)`;
   };
 
-  const { ref, animationProps } = useTypewriterEffect(
-    Array.from(card.description)
-  );
   return (
     <div
       className="relative flex border-0 transition duration-500 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit rounded-2xl text-left"
@@ -157,20 +154,7 @@ const AnimatedCard = ({ card, index }: { card: Props; index: number }) => {
             <card.icon />
           </div>
           <h4 className="text-2xl font-medium mb-5">{card.title}</h4>
-          <p className="mb-0 text-white/60 text-[17.5px]">
-            <div>
-              {Array.from(card.description).map((text, index) => (
-                <motion.span
-                  key={index}
-                  className="transition-opacity duration-500 ease-in-out"
-                  ref={ref}
-                  {...animationProps(index)}
-                >
-                  {text}
-                </motion.span>
-              ))}
-            </div>
-          </p>
+          <p className="mb-0 text-white/60 text-[17.5px]">{card.description}</p>
         </div>
       </div>
       <div
@@ -267,7 +251,9 @@ const CompanyStats = () => {
                   <motion.span
                     key={index}
                     className={`inline-block mr-2 transition-opacity duration-500 ease-in-out ${
-                      (["businesses", "scale"] as string[]).includes(text)
+                      (
+                        ["businesses", "scale"] as string[]
+                      ).includes(text)
                         ? "text-[#60a6e7]"
                         : "text-white"
                     }`}
