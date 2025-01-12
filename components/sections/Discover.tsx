@@ -165,7 +165,7 @@ export const Discover = () => {
               <Image
                 src={testimonials[currentIndex].avatar.src}
                 alt={testimonials[currentIndex].author}
-                loading="lazy"
+                priority
                 decoding="async"
                 className="relative z-10 w-full h-full object-cover rounded-xl"
                 style={{

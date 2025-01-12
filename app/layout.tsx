@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Lexend } from "next/font/google";
-import {Navbar} from "../components/layout/Navbar";
+import { Navbar } from "../components/layout/Navbar";
 import "./globals.css";
+import Footer from "@/components/layout/Footer";
 
 const lexendFont = Lexend({
   variable: "--font-lexend",
@@ -21,11 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${lexendFont.variable} font-lexend antialiased`}
-      >
+      <body className={`${lexendFont.variable} font-lexend antialiased`}>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

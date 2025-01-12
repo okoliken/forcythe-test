@@ -18,7 +18,6 @@ const TestimonialsMarquee = ({ direction = "left" }: { direction?: "left" | "rig
               alt={`image-${index}`}
               width={image.width}
               height={image.height}
-              loading="lazy"
               priority
               className="overflow-hidden w-full h-full"
               decoding="async"

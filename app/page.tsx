@@ -4,6 +4,7 @@ import { Discover } from "@/components/sections/Discover";
 import Services from "@/components/sections/Services";
 import { BestB2BProduct } from "@/components/sections/BestB2BProduct";
 import NewsAndArticles from "@/components/sections/NewsAndArticles";
+import SubFooter from "@/components/layout/SubFooter";
 
 export default function Home() {
   return (
@@ -29,6 +30,9 @@ export default function Home() {
               </div>
               <div>
                 <NewsAndArticles />
+              </div>
+              <div>
+                <SubFooter />
               </div>
             </div>
           </div>

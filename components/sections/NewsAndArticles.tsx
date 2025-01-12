@@ -1,6 +1,7 @@
 "use client";
 import useTypewriterEffect from "@/hooks/useTypeWriterEffect";
 import Button from "../ui/Button";
+import Image from "next/image";
 import { motion } from "motion/react";
 
 const NewsAndArticles = () => {
@@ -49,6 +50,77 @@ const NewsAndArticles = () => {
               alt="arrow"
             />
           </Button>
+        </div>
+      </div>
+      <div className="blogs grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
+        <div className="w-full pb-5 rounded-[1.3rem] relative overflow-hidden cursor-pointer group hover:shadow-sm hover:shadow-accent transition-all duration-500">
+          <div className="h-60 sm:h-56 relative mb-6">
+            <Image
+              src="/assets/newsandarticles/forcythe-ai.webp"
+              alt="Will AI take over Art?"
+              fill
+              decoding="async"
+              loading="lazy"
+              className="w-full h-full rounded-[1.3rem] transition-transform duration-300 transform group-hover:scale-105 object-cover"
+            />
+          </div>
+          <div className="pl-5 relative before:absolute before:w-[1px] before:h-[90%] before:bg-white before:left-0 before:top-[50%] before:-translate-y-[50%] group-hover:translate-x-4 custom-animate">
+            <p className="text-lg font-semibold mb-1">Blog</p>
+            <div className="text-base text-darkGrey flex items-center mb-6">
+              <span>The Reformist</span>
+              <div className="h-2 w-2 rounded-full bg-white mx-[6px] "></div>
+              <span>May 29th, 2024</span>
+            </div>
+            <h6 className="text-xl md:text-2xl font-semibold line-clamp-2">
+              Will AI take over Art?
+            </h6>
+          </div>
+        </div>
+        <div className="w-full pb-5 rounded-[1.3rem] relative overflow-hidden cursor-pointer group hover:shadow-sm hover:shadow-accent transition-all duration-500">
+          <div className="h-60 sm:h-56 relative mb-6">
+            <Image
+              src="/assets/newsandarticles/forcythe-asset.webp"
+              alt="Will AI take over Art?"
+              fill
+              decoding="async"
+              loading="lazy"
+              className="w-full h-full rounded-[1.3rem] transition-transform duration-300 transform group-hover:scale-105 object-cover"
+            />
+          </div>
+          <div className="pl-5 relative before:absolute before:w-[1px] before:h-[90%] before:bg-white before:left-0 before:top-[50%] before:-translate-y-[50%] group-hover:translate-x-4 custom-animate">
+            <p className="text-lg font-semibold mb-1">Blog</p>
+            <div className="text-base text-darkGrey flex items-center mb-6">
+              <span>The Reformist</span>
+              <div className="h-2 w-2 rounded-full bg-white mx-[6px] "></div>
+              <span>May 29th, 2024</span>
+            </div>
+            <h6 className="text-xl md:text-2xl font-semibold line-clamp-2">
+              Will AI take over Art?
+            </h6>
+          </div>
+        </div>
+        <div className="w-full pb-5 rounded-[1.3rem] relative overflow-hidden cursor-pointer group hover:shadow-sm hover:shadow-accent transition-all duration-500">
+          <div className="h-60 sm:h-56 relative mb-6">
+            <Image
+              src="/assets/newsandarticles/forcythe-crypto.webp"
+              alt="Will AI take over Art?"
+              fill
+              decoding="async"
+              loading="lazy"
+              className="w-full h-full rounded-[1.3rem] transition-transform duration-300 transform group-hover:scale-105 object-cover"
+            />
+          </div>
+          <div className="pl-5 relative before:absolute before:w-[1px] before:h-[90%] before:bg-white before:left-0 before:top-[50%] before:-translate-y-[50%] group-hover:translate-x-4 custom-animate">
+            <p className="text-lg font-semibold mb-1">Blog</p>
+            <div className="text-base text-darkGrey flex items-center mb-6">
+              <span>The Reformist</span>
+              <div className="h-2 w-2 rounded-full bg-white mx-[6px] "></div>
+              <span>May 29th, 2024</span>
+            </div>
+            <h6 className="text-xl md:text-2xl font-semibold line-clamp-2">
+              Will AI take over Art?
+            </h6>
+          </div>
         </div>
       </div>
     </div>
