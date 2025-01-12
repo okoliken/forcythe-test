@@ -6,7 +6,6 @@ import { motion } from "motion/react";
 import { useToggle } from "@/stores/useToggle";
 
 export const Hero = () => {
-  //   const [isTypewriterComplete, setIsTypewriterComplete] = useState(false);
   const isTypewriterComplete = useToggle((state) => state.isOpen);
   const setIsTypewriterComplete = useToggle((state) => state.toggle);
 

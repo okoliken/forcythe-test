@@ -31,11 +31,11 @@ export default function Home() {
               <div>
                 <NewsAndArticles />
               </div>
-                <SubFooter />
             </div>
           </div>
         </div>
       </div>
+      <SubFooter />
     </main>
   );
 }

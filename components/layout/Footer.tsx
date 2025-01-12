@@ -144,7 +144,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="copyright border-t-[1px] border-accent">
-        <p className="text-accent2 text-sm mt-5 text-center md:text-left">
+        <p className="text-[#B3D0F2] text-sm mt-5 text-center md:text-left">
           Copyright © 2024 Forcythe. All rights reserved.
         </p>
       </div>

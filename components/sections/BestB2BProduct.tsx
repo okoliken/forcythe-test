@@ -1,7 +1,8 @@
 "use client";
 import useTypewriterEffect from "@/hooks/useTypeWriterEffect";
-import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
+
+import React, { useEffect, useRef, useState } from "react";
 
 interface Props {
   icon: () => React.JSX.Element;
@@ -98,82 +99,94 @@ export const BestB2BProduct = () => {
 };
 
 const AnimatedCard = ({ card, index }: { card: Props; index: number }) => {
-    const cardRef = useRef<HTMLDivElement | null>(null);
-    const [isHovered, setIsHovered] = useState(false);
-    
-    useEffect(() => {
-      if (isHovered) return;
-      
-      const animate = () => {
-        // Add phase offset based on index
-        const phaseOffset = (index * Math.PI * 2) / 3; // Dividing by 3 for three columns
-        const time = Date.now() / 2000;
-        
-        // Add offset to create alternating pattern
-        const x = 50 + Math.cos(time + phaseOffset) * 40;
-        const y = 50 + Math.sin(time + phaseOffset) * 40;
-        
-        if (cardRef.current) {
-          cardRef.current.style.background = 
-            `radial-gradient(17.0527% 42.8675% at ${x}% ${y}%, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%)`;
-        }
-      };
-  
-      const animationFrame = () => {
-        animate();
-        requestRef.current = requestAnimationFrame(animationFrame);
-      };
-  
-      const requestRef = { current: requestAnimationFrame(animationFrame) };
-  
-      return () => {
-        cancelAnimationFrame(requestRef.current);
-      };
-    }, [isHovered, index]);
-  
-    const handleMouseMove = (e: React.MouseEvent) => {
-      if (!cardRef.current) return;
-      
-      const rect = e.currentTarget.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      
-      cardRef.current.style.background = 
-        `radial-gradient(17.0527% 42.8675% at ${x}% ${y}%, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%)`;
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    if (isHovered) return;
+
+    const animate = () => {
+      // Add phase offset based on index
+      const phaseOffset = (index * Math.PI * 2) / 3; // Dividing by 3 for three columns
+      const time = Date.now() / 800;
+
+      // Add offset to create alternating pattern
+      const x = 50 + Math.cos(time + phaseOffset) * 40;
+      const y = 50 + Math.sin(time + phaseOffset) * 40;
+
+      if (cardRef.current) {
+        cardRef.current.style.background = `radial-gradient(17.0527% 42.8675% at ${x}% ${y}%, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%)`;
+      }
     };
-  
-    return (
-      <div
-        className="relative flex border-0 transition duration-500 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit rounded-2xl text-left"
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <div className="w-auto text-white z-10 bg-transparent rounded-[inherit]">
-          <div className="w-full bg-[#030516] rounded-2xl p-8 sm:p-10 hover:shadow-darkGrey transition-all duration-300">
-            <div className="w-fit p-2 bg-[#60A6E7] bg-opacity-60 rounded-md mb-5">
-              <card.icon />
-            </div>
-            <h4 className="text-2xl font-medium mb-5">{card.title}</h4>
-            <p className="mb-0 text-white/60 text-[17.5px]">
-              {card.description}
-            </p>
-          </div>
-        </div>
-        <div
-          ref={cardRef}
-          className="flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit] transition-all duration-200"
-          style={{
-            filter: "blur(2px)",
-            position: "absolute",
-            width: "100%",
-            height: "100%"
-          }}
-        />
-        <div className="bg-black absolute z-1 flex-none inset-[2px] rounded-[inherit]" />
-      </div>
-    );
+
+    const animationFrame = () => {
+      animate();
+      requestRef.current = requestAnimationFrame(animationFrame);
+    };
+
+    const requestRef = { current: requestAnimationFrame(animationFrame) };
+
+    return () => {
+      cancelAnimationFrame(requestRef.current);
+    };
+  }, [isHovered, index]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!cardRef.current) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    cardRef.current.style.background = `radial-gradient(17.0527% 42.8675% at ${x}% ${y}%, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%)`;
   };
+
+  const { ref, animationProps } = useTypewriterEffect(
+    Array.from(card.description)
+  );
+  return (
+    <div
+      className="relative flex border-0 transition duration-500 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit rounded-2xl text-left"
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="w-auto text-white z-10 bg-transparent rounded-[inherit]">
+        <div className="w-full bg-[#030516] rounded-2xl p-8 sm:p-10 hover:shadow-darkGrey transition-all duration-300">
+          <div className="w-fit p-2 bg-[#60A6E7] bg-opacity-60 rounded-md mb-5">
+            <card.icon />
+          </div>
+          <h4 className="text-2xl font-medium mb-5">{card.title}</h4>
+          <p className="mb-0 text-white/60 text-[17.5px]">
+            <div>
+              {Array.from(card.description).map((text, index) => (
+                <motion.span
+                  key={index}
+                  className="transition-opacity duration-500 ease-in-out"
+                  ref={ref}
+                  {...animationProps(index)}
+                >
+                  {text}
+                </motion.span>
+              ))}
+            </div>
+          </p>
+        </div>
+      </div>
+      <div
+        ref={cardRef}
+        className="flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit] transition-all duration-200"
+        style={{
+          filter: "blur(2px)",
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+        }}
+      />
+      <div className="bg-black absolute z-1 flex-none inset-[2px] rounded-[inherit]" />
+    </div>
+  );
+};
 
 const CardGrid = ({ cardData }: { cardData: Props[] }) => {
   return (
@@ -193,6 +206,51 @@ const CompanyStats = () => {
     { value: "10+", label: "Glorious Years" },
   ];
 
+  const paragraphText = [
+    "We",
+    "build",
+    "solutions",
+    "that",
+    "help",
+    "businesses",
+    "of",
+    "all",
+    "sizes",
+    "to",
+    "scale",
+  ];
+
+  const { ref, animationProps } = useTypewriterEffect(paragraphText);
+  const statsRef = React.useRef(null);
+  const isInView = useInView(statsRef, { once: true, margin: "-100px" });
+
+  const containerVariants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const statsVariants = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
   return (
     <div
       className="py-14 md:py-20 xl:py-28"
@@ -204,27 +262,70 @@ const CompanyStats = () => {
         <div className="pt-20 sm:pt-40 lg:pt-60 pb-10 md:pb-14 lg:pb-20 max-w-xl mx-auto text-center px-5">
           <div className="mb-14 lg:mb-20 max-w-[19rem] md:max-w-md mx-auto">
             <p className="text-xl md:text-2xl lg:text-3xl font-medium">
-              We build solutions that help{" "}
-              <span className="text-[#60a6e7]">businesses</span> of all sizes to{" "}
-              <span className="text-[#60a6e7]">scale</span>
+              <div>
+                {paragraphText.map((text, index) => (
+                  <motion.span
+                    key={index}
+                    className={`inline-block mr-2 transition-opacity duration-500 ease-in-out ${
+                      (["businesses", "scale"] as string[]).includes(text)
+                        ? "text-[#60a6e7]"
+                        : "text-white"
+                    }`}
+                    ref={ref}
+                    {...animationProps(index)}
+                  >
+                    {text}
+                  </motion.span>
+                ))}
+              </div>
             </p>
           </div>
-          <div className="flex justify-evenly sm:justify-between items-center gap-3">
+          <motion.div
+            ref={statsRef}
+            className="flex justify-evenly sm:justify-between items-center gap-3"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
             {stats.map((stat, index) => (
-              <div key={index} className="flex flex-col gap-3 text-left w-fit">
-                <div className="text-[1.7rem] sm:text-[2rem] md:text-[3rem] text-accent font-medium">
+              <motion.div
+                key={index}
+                className="flex flex-col gap-3 text-left w-fit"
+                variants={statsVariants}
+              >
+                <motion.div
+                  className="text-[1.7rem] sm:text-[2rem] md:text-[3rem] text-accent font-medium"
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={
+                    isInView
+                      ? { scale: 1, opacity: 1 }
+                      : { scale: 0.5, opacity: 0 }
+                  }
+                  transition={{
+                    duration: 0.6,
+                    delay: index * 0.1,
+                    ease: "easeOut",
+                  }}
+                >
                   {stat.value}
-                </div>
-                <span className="text-[15px] sm:text-base md:text-lg whitespace-nowrap max-w-full overflow-hidden text-ellipsis">
+                </motion.div>
+                <motion.span
+                  className="text-[15px] sm:text-base md:text-lg whitespace-nowrap max-w-full overflow-hidden text-ellipsis"
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.2 + index * 0.1,
+                  }}
+                >
                   {stat.label}
-                </span>
-              </div>
+                </motion.span>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
   );
 };
-
 export default BestB2BProduct;

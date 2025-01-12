@@ -196,7 +196,7 @@ const Tabs = ({
 }) => {
   return (
     <div className="w-full overflow-x-scroll hide-scrollbar">
-      <div className="w-full border-[1px] border-[#062645] rounded-full grid place-items-center grid-cols-5 min-w-[750px]">
+      <div className="w-full border-[1px] border-[#06438C] rounded-full grid place-items-center grid-cols-5 min-w-[750px]">
         {TabImages.map((image, index) => (
           <div
             key={index}
