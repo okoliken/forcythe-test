@@ -12,7 +12,7 @@ const TestimonialsMarquee = ({ direction = "left" }: { direction?: "left" | "rig
       <div className="skills overflow-hidden flex items-stretch gap-5 w-full ml-5">
         {testimonials.map((image, index) => (
           <div key={index} className="relative w-auto h-[340px]">
-            <div className="bg-accent -z-10 w-full h-full absolute top-0 left-0 bg-opacity-10 animate-pulse" />
+            <div className="bg-gray-100 -z-10 w-full h-full absolute top-0 left-0 bg-opacity-10 animate-pulse" />
             <Image
               src={image.src}
               alt={`image-${index}`}
