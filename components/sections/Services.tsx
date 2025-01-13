@@ -136,8 +136,8 @@ const Services: React.FC = () => {
                 alt={`${activeService} service`}
                 width={200}
                 height={200}
+                priority
                 decoding="async"
-                loading="lazy"
                 className="w-full h-[350px] md:w-[95%] md:h-[95%] lg:w-[90%] lg:h-[426px]"
               />
             </motion.div>

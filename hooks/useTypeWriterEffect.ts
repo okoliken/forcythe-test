@@ -17,7 +17,6 @@ const useTypewriterEffect = (
   textArray: string[],
   shouldWait?: boolean | null
 ): TypewriterEffectResult => {
-  const [isVisible, setIsVisible] = useState(false);
   const [revealedIndices, setRevealedIndices] = useState<number[]>([]);
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, {
@@ -51,7 +50,7 @@ const useTypewriterEffect = (
 
       return () => clearInterval(interval);
     }
-  }, [isInView, shouldWait, textArray, isVisible]);
+  }, [isInView, shouldWait, textArray]);
 
   const animationProps = useCallback(
     (index: number) => ({

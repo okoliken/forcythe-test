@@ -64,9 +64,11 @@ const NewsAndArticles = () => {
               className="w-full h-full rounded-[1.3rem] transition-transform duration-300 transform group-hover:scale-105 object-cover"
             />
           </div>
-          <div className="pl-5 relative before:absolute before:w-[1px] before:h-[90%] before:bg-white before:left-0 
+          <div
+            className="pl-5 relative before:absolute before:w-[1px] before:h-[90%] before:bg-white before:left-0 
         before:top-[50%] before:-translate-y-[50%] transition-all duration-300 transform 
-        group-hover:translate-x-4">
+        group-hover:translate-x-4"
+          >
             <p className="text-lg font-semibold mb-1">Blog</p>
             <div className="text-base text-darkGrey flex items-center mb-6">
               <span>The Reformist</span>
@@ -89,9 +91,11 @@ const NewsAndArticles = () => {
               className="w-full h-full rounded-[1.3rem] transition-transform duration-300 transform group-hover:scale-105 object-cover"
             />
           </div>
-          <div className="pl-5 relative before:absolute before:w-[1px] before:h-[90%] before:bg-white before:left-0 
+          <div
+            className="pl-5 relative before:absolute before:w-[1px] before:h-[90%] before:bg-white before:left-0 
         before:top-[50%] before:-translate-y-[50%] transition-all duration-300 transform 
-        group-hover:translate-x-4">
+        group-hover:translate-x-4"
+          >
             <p className="text-lg font-semibold mb-1">Blog</p>
             <div className="text-base text-darkGrey flex items-center mb-6">
               <span>The Reformist</span>
@@ -114,9 +118,11 @@ const NewsAndArticles = () => {
               className="w-full h-full rounded-[1.3rem] transition-transform duration-300 transform group-hover:scale-105 object-cover"
             />
           </div>
-          <div className="pl-5 relative before:absolute before:w-[1px] before:h-[90%] before:bg-white before:left-0 
+          <div
+            className="pl-5 relative before:absolute before:w-[1px] before:h-[90%] before:bg-white before:left-0 
         before:top-[50%] before:-translate-y-[50%] transition-all duration-300 transform 
-        group-hover:translate-x-4">
+        group-hover:translate-x-4"
+          >
             <p className="text-lg font-semibold mb-1">Blog</p>
             <div className="text-base text-darkGrey flex items-center mb-6">
               <span>The Reformist</span>
